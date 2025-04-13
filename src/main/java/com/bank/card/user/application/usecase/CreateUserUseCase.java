@@ -9,6 +9,7 @@ import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.infrastructure.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class CreateUserUseCase {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserDto execute(CreateUserCommand command) {
         var email = command.email();
 

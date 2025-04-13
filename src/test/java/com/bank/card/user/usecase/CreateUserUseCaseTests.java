@@ -32,7 +32,7 @@ public class CreateUserUseCaseTests {
     PasswordEncoder passwordEncoder;
 
     @Test
-    void createUser_success_forValidDate() {
+    void createUser_success_forValidData() {
         var command = new CreateUserCommand(
                 "Test",
                 "Test12345678",
