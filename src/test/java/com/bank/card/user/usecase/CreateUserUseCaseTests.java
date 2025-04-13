@@ -7,17 +7,13 @@ import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
-import org.assertj.core.condition.AnyOf;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.internal.matchers.Any;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

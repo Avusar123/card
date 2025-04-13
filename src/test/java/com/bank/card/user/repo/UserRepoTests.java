@@ -4,15 +4,12 @@ import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
-import com.bank.card.CardApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest

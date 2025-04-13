@@ -1,14 +1,11 @@
 package com.bank.card.user.application.usecase.command;
 
 import com.bank.card.user.domain.UserRole;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.Objects;
 
 @Validated
 public record CreateUserCommand(@NotBlank @Email(message = "Email is not valid!") String email,

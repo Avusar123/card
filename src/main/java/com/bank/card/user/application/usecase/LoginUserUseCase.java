@@ -2,12 +2,10 @@ package com.bank.card.user.application.usecase;
 
 import com.bank.card.common.UseCase;
 import com.bank.card.user.application.usecase.command.LoginUserCommand;
-import com.bank.card.user.application.usecase.dto.UserDto;
 import com.bank.card.user.infrastructure.UserRepo;
 import com.bank.card.web.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @UseCase

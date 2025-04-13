@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.time.Instant;
-import java.util.Date;
 
 public class JwtData {
     private Claims claims;

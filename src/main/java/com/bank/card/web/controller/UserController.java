@@ -7,14 +7,9 @@ import com.bank.card.user.application.usecase.command.CreateUserCommand;
 import com.bank.card.user.application.usecase.command.GetUserByEmailCommand;
 import com.bank.card.user.application.usecase.command.LoginUserCommand;
 import com.bank.card.user.application.usecase.dto.UserDto;
-import com.bank.card.user.infrastructure.UserRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 public class UserController {

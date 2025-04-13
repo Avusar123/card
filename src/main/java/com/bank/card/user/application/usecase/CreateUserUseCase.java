@@ -3,14 +3,12 @@ package com.bank.card.user.application.usecase;
 import com.bank.card.common.UseCase;
 import com.bank.card.user.application.exception.EmailAlreadyExists;
 import com.bank.card.user.application.usecase.command.CreateUserCommand;
-import com.bank.card.user.application.usecase.command.DeleteUserByEmailCommand;
 import com.bank.card.user.application.usecase.dto.UserDto;
 import com.bank.card.user.domain.PasswordValidator;
 import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.infrastructure.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
