@@ -4,7 +4,7 @@ public final class PasswordValidator {
     private PasswordValidator() {};
 
     public static boolean valid(String password) {
-        return password != null && !password.isBlank() && password.length() > 8;
+        return password != null && !password.isBlank() && password.length() >= 8;
     }
 
     public static void throwIfInvalid(String password) {

@@ -1,3 +1,4 @@
 databaseChangeLog:
-  - include:
-      file: classpath:/db/changelog/user/user-migrations.yaml
+  - includeAll:
+      path: user
+      relativeToChangelogFile: true

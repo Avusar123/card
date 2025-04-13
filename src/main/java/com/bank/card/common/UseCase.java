@@ -1,5 +1,6 @@
 package com.bank.card.common;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -12,5 +13,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Service
 @Validated
+@Valid
 public @interface UseCase {
 }

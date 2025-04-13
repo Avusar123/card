@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: classpath:/db/changelog/user/1-create-users-table.yaml

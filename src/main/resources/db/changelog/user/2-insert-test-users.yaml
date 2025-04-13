@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      context: dev
+      author: dev
+      changes:
+        - insert:
+            tableName: user_model
+            columns:
+              - column:
+                  name: id
+                  value: "123e4567-e89b-12d3-a456-426614174000"
+              - column:
+                  name: role
+                  value: "ADMIN"
+              - column:
+                  name: email
+                  value: "admin@example.com"
+              - column:
+                  name: password
+                  value: "$2a$10$ILFxDsL11F9695ehzJBi/.GTC8mK9I64JnhBOucTu4MuKgcQiUr3K" #admin123123
+              - column:
+                  name: name
+                  value: "Admin"
+

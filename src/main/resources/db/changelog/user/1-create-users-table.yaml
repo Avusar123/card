@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: dev
+      context: dev, prod
       changes:
         - createTable:
             tableName: user_model
@@ -24,6 +25,8 @@ databaseChangeLog:
               - column:
                   name: password
                   type: VARCHAR(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: name
                   type: VARCHAR(255)
