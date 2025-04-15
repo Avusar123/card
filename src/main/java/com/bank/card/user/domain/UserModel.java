@@ -1,9 +1,15 @@
 package com.bank.card.user.domain;
 
+import com.bank.card.card.domain.Card;
+import com.bank.card.shared.id.UserId;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class UserModel {
@@ -11,7 +17,8 @@ public class UserModel {
     @AttributeOverride(name = "uuid", column = @Column(name = "id"))
     UserId id;
 
-//    List<Card> cards;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "owner")
+    List<Card> cards;
 //
 //    List<Transaction> transactions;
 
@@ -19,21 +26,27 @@ public class UserModel {
     UserRole role;
 
     @Column(unique = true)
+    @Email
     String email;
 
     @Column(name = "password")
+    @NotBlank
     String passwordHash;
 
+    @NotBlank
     String name;
 
-    UserModel() {}
+    public UserModel() {
+        this.cards = new ArrayList<>();
+    }
 
     public UserModel(@NotNull UserId id,
                      @NotNull UserRole role,
                      @NotBlank String email,
                      @NotBlank String passwordHash,
                      @NotBlank String name) {
-        Assert.notNull(id, "Id must not be null");
+
+        this(id);
 
         Assert.notNull(role, "Role must not be null");
 
@@ -49,11 +62,17 @@ public class UserModel {
 
         Assert.isTrue(!name.trim().isEmpty(), "Name is empty");
 
-        this.id = id;
+
         this.role = role;
         this.email = email;
         this.passwordHash = passwordHash;
         this.name = name;
+        this.cards = new ArrayList<>();
+    }
+
+    public UserModel(@NotNull UserId id) {
+        Assert.notNull(id, "Id must not be null");
+        this.id = id;
     }
 
     public UserId getId() {

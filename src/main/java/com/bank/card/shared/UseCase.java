@@ -1,7 +1,7 @@
-package com.bank.card.common;
+package com.bank.card.shared;
 
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.lang.annotation.ElementType;
@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Service
 @Validated
-@Valid
+@Transactional
 public @interface UseCase {
 }

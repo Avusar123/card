@@ -1,8 +1,8 @@
 package com.bank.card.user.usecase;
 
 import com.bank.card.shared.id.UserId;
-import com.bank.card.user.application.usecase.GetUserByEmailUseCase;
-import com.bank.card.user.application.usecase.command.GetUserByEmailCommand;
+import com.bank.card.user.application.usecase.GetUserByIdUseCase;
+import com.bank.card.user.application.usecase.command.GetUserByIdCommand;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
@@ -18,41 +18,41 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class GetUserByEmailUseCaseTests {
+public class GetUserByIdUseCaseTests {
 
     @Mock
     UserRepo repo;
     @InjectMocks
-    private GetUserByEmailUseCase getUserByEmailUseCase;
+    private GetUserByIdUseCase getUserByIdUseCase;
 
     @Test
     void getUser_exception_notFound() {
-        var command = new GetUserByEmailCommand(
-                "test@gmail.com"
+        var command = new GetUserByIdCommand(
+                new UserId()
         );
 
-        Assertions.assertThrows(UsernameNotFoundException.class, () -> getUserByEmailUseCase.execute(command));
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> getUserByIdUseCase.execute(command));
     }
 
     @Test
     void getUser_success_found() {
-        var email = "test@gmail.com";
+        var id = new UserId();
 
-        var command = new GetUserByEmailCommand(
-                email
+        var command = new GetUserByIdCommand(
+                id
         );
 
-        Mockito.when(repo.findByEmail(email)).thenReturn(Optional.of(new UserModel(
-                new UserId(),
+        Mockito.when(repo.findById(id)).thenReturn(Optional.of(new UserModel(
+                id,
                 UserRole.CLIENT,
-                email,
+                "test@gmail.com",
                 "Encoded",
                 "Test"
         )));
 
-        var result = getUserByEmailUseCase.execute(command);
+        var result = getUserByIdUseCase.execute(command);
 
-        Assertions.assertEquals(email, result.email());
+        Assertions.assertEquals(id, result.id());
     }
 
 }

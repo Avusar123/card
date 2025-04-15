@@ -1,8 +1,8 @@
 package com.bank.card.user.usecase;
 
+import com.bank.card.shared.id.UserId;
 import com.bank.card.user.application.usecase.GetUsersUseCase;
 import com.bank.card.user.application.usecase.command.GetUsersCommand;
-import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
@@ -21,11 +21,10 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 public class GetUsersUseCaseTests {
 
-    @InjectMocks
-    private GetUsersUseCase getUsersUseCase;
-
     @Mock
     UserRepo repo;
+    @InjectMocks
+    private GetUsersUseCase getUsersUseCase;
 
     @Test
     void getUser_success_list() {
@@ -34,11 +33,11 @@ public class GetUsersUseCaseTests {
         var command = new GetUsersCommand(0, 3);
 
         var user = new UserModel(
-                    new UserId(),
-                    UserRole.CLIENT,
-                    email,
-                    "Encoded",
-                    "Test");
+                new UserId(),
+                UserRole.CLIENT,
+                email,
+                "Encoded",
+                "Test");
 
         Mockito.when(repo.findAll(Mockito.any(Pageable.class))).thenReturn(new PageImpl<>(List.of(user)));
 

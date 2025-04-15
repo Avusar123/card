@@ -1,6 +1,6 @@
 package com.bank.card.user.repo;
 
-import com.bank.card.user.domain.UserId;
+import com.bank.card.shared.id.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
@@ -23,13 +23,13 @@ public class UserRepoTests {
     }
 
     @Test
-    void createUser_success() {
+    void createUser_success_uniqueEmail() {
         var id = new UserId();
 
         var userModel = new UserModel(
                 id,
                 UserRole.CLIENT,
-                "Test",
+                "Test@example.com",
                 "Test",
                 "Test"
         );
@@ -47,7 +47,7 @@ public class UserRepoTests {
         var userModel = new UserModel(
                 id,
                 UserRole.CLIENT,
-                "Test",
+                "Test@example.com",
                 "Test",
                 "Test"
         );
@@ -55,12 +55,12 @@ public class UserRepoTests {
         var newUserModel = new UserModel(
                 new UserId(),
                 UserRole.CLIENT,
-                "Test",
+                "Test@example.com",
                 "Test",
                 "Test"
         );
 
-        userModel = userRepo.saveAndFlush(userModel);
+        userRepo.saveAndFlush(userModel);
 
 
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> userRepo.saveAndFlush(newUserModel));

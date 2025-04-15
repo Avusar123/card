@@ -1,8 +1,9 @@
 package com.bank.card.user.application.usecase;
 
-import com.bank.card.common.UseCase;
+import com.bank.card.shared.UseCase;
 import com.bank.card.user.application.usecase.command.DeleteUserByEmailCommand;
 import com.bank.card.user.infrastructure.UserRepo;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +21,7 @@ public class DeleteUserByEmailUseCase {
 
     @Transactional
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void execute(DeleteUserByEmailCommand command) {
+    public void execute(@Valid DeleteUserByEmailCommand command) {
         var email = command.email();
 
         var user = repo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found!"));

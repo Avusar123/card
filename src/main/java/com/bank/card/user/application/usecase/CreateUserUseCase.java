@@ -1,13 +1,14 @@
 package com.bank.card.user.application.usecase;
 
-import com.bank.card.common.UseCase;
+import com.bank.card.shared.UseCase;
+import com.bank.card.shared.dto.UserDto;
+import com.bank.card.shared.id.UserId;
 import com.bank.card.user.application.exception.EmailAlreadyExists;
 import com.bank.card.user.application.usecase.command.CreateUserCommand;
-import com.bank.card.user.application.usecase.dto.UserDto;
 import com.bank.card.user.domain.PasswordValidator;
-import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.infrastructure.UserRepo;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +28,7 @@ public class CreateUserUseCase {
 
     @Transactional
     @PreAuthorize("hasAuthority('ADMIN')")
-    public UserDto execute(CreateUserCommand command) {
+    public UserDto execute(@Valid CreateUserCommand command) {
         var email = command.email();
 
         if (repo.findByEmail(email).isPresent()) {
@@ -45,7 +46,7 @@ public class CreateUserUseCase {
         user = repo.save(user);
 
         return new UserDto(
-                user.getId().uuid(),
+                user.getId(),
                 user.getRole(),
                 user.getEmail(),
                 user.getName()
