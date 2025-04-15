@@ -1,8 +1,8 @@
 package com.bank.card.user.usecase;
 
+import com.bank.card.shared.id.UserId;
 import com.bank.card.user.application.usecase.DeleteUserByEmailUseCase;
 import com.bank.card.user.application.usecase.command.DeleteUserByEmailCommand;
-import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
@@ -20,11 +20,10 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 public class DeleteUserByEmailTests {
 
-    @InjectMocks
-    private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
-
     @Mock
     UserRepo repo;
+    @InjectMocks
+    private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
 
     @Test
     void getUser_exception_notFound() {

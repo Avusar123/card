@@ -1,8 +1,8 @@
 package com.bank.card.user.usecase;
 
+import com.bank.card.shared.id.UserId;
 import com.bank.card.user.application.usecase.LoginUserUseCase;
 import com.bank.card.user.application.usecase.command.LoginUserCommand;
-import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
@@ -23,17 +23,14 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 public class LoginUserUseCaseTests {
 
-    @InjectMocks
-    private LoginUserUseCase loginUserUseCase;
-
     @Mock
     UserRepo repo;
-
     @Spy
     PasswordEncoder passwordEncoder;
-
     @Mock
     JwtService jwtService;
+    @InjectMocks
+    private LoginUserUseCase loginUserUseCase;
 
     @Test
     void loginUser_success_valid() {

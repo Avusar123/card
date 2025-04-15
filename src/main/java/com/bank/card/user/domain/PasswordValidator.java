@@ -1,7 +1,10 @@
 package com.bank.card.user.domain;
 
 public final class PasswordValidator {
-    private PasswordValidator() {};
+    private PasswordValidator() {
+    }
+
+    ;
 
     public static boolean valid(String password) {
         return password != null && !password.isBlank() && password.length() >= 8;

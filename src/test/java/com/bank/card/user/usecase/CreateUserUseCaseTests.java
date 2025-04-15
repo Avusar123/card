@@ -1,9 +1,9 @@
 package com.bank.card.user.usecase;
 
+import com.bank.card.shared.id.UserId;
 import com.bank.card.user.application.exception.EmailAlreadyExists;
 import com.bank.card.user.application.usecase.CreateUserUseCase;
 import com.bank.card.user.application.usecase.command.CreateUserCommand;
-import com.bank.card.user.domain.UserId;
 import com.bank.card.user.domain.UserModel;
 import com.bank.card.user.domain.UserRole;
 import com.bank.card.user.infrastructure.UserRepo;
@@ -22,14 +22,12 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 public class CreateUserUseCaseTests {
 
-    @InjectMocks
-    private CreateUserUseCase createUserUseCase;
-
     @Mock
     UserRepo repo;
-
     @Spy
     PasswordEncoder passwordEncoder;
+    @InjectMocks
+    private CreateUserUseCase createUserUseCase;
 
     @Test
     void createUser_success_forValidData() {
