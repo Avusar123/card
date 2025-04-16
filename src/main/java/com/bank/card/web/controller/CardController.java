@@ -21,6 +21,7 @@ public class CardController {
     private final BlockCardUseCase blockCardUseCase;
     private final ActivateCardUseCase activateCardUseCase;
     private final GetCardByIdUseCase getCardByIdUseCase;
+    private final DeleteCardByIdUseCase deleteCardByIdUseCase;
 
     @Autowired
     public CardController(CreateCardUseCase createCardUseCase,
@@ -28,13 +29,15 @@ public class CardController {
                           GetCardsByUserIdUseCase getCardsByUserIdUseCase,
                           BlockCardUseCase blockCardUseCase,
                           ActivateCardUseCase activateCardUseCase,
-                          GetCardByIdUseCase getCardByIdUseCase) {
+                          GetCardByIdUseCase getCardByIdUseCase,
+                          DeleteCardByIdUseCase deleteCardByIdUseCase) {
         this.createCardUseCase = createCardUseCase;
         this.getCardsUseCase = getCardsUseCase;
         this.getCardsByUserIdUseCase = getCardsByUserIdUseCase;
         this.blockCardUseCase = blockCardUseCase;
         this.activateCardUseCase = activateCardUseCase;
         this.getCardByIdUseCase = getCardByIdUseCase;
+        this.deleteCardByIdUseCase = deleteCardByIdUseCase;
     }
 
     @PostMapping("/card")
@@ -45,6 +48,11 @@ public class CardController {
     @GetMapping("/card")
     public CardDto get(@RequestParam(name = "id") UUID cardId) {
         return getCardByIdUseCase.execute(new GetCardByIdCommand(new CardId(cardId)));
+    }
+
+    @DeleteMapping("/card")
+    public void delete(@RequestParam(name = "id") UUID cardId) {
+        deleteCardByIdUseCase.execute(new DeleteCardByIdCommand(new CardId(cardId)));
     }
 
     @PostMapping("/card/block")
