@@ -5,10 +5,11 @@ import com.bank.card.card.application.usecase.command.BlockCardCommand;
 import com.bank.card.card.domain.CardStatus;
 import com.bank.card.card.infrastructure.CardRepo;
 import com.bank.card.shared.UseCase;
+import com.bank.card.shared.dto.CardDto;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,8 @@ public class BlockCardUseCase {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public void execute(@Valid BlockCardCommand command) {
+    @PostAuthorize("returnObject.ownerId == authentication.principal.id || hasAuthority('ADMIN')")
+    public CardDto execute(@Valid BlockCardCommand command) {
         var card = repo.findById(command.cardId()).orElseThrow(
                 () -> new EntityNotFoundException("There is no card with that Id")
         );
@@ -35,5 +36,15 @@ public class BlockCardUseCase {
         card.setStatus(CardStatus.BLOCKED);
 
         repo.save(card);
+
+        return new CardDto(
+                card.getId(),
+                card.getOwner().getName(),
+                card.getOwner().getId(),
+                card.getNumber().mask(),
+                card.getStatus(),
+                card.getCardValue(),
+                card.getExpires()
+        );
     }
 }

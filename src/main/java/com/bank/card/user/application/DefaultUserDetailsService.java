@@ -1,5 +1,6 @@
 package com.bank.card.user.application;
 
+import com.bank.card.shared.SecurityUser;
 import com.bank.card.user.infrastructure.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
         return new SecurityUser(
                 userModel.getRole(),
                 userModel.getPasswordHash(),
-                userModel.getEmail());
+                userModel.getEmail(),
+                userModel.getId());
     }
 }
