@@ -3,8 +3,10 @@ package com.bank.card.card.application.usecase;
 import com.bank.card.card.application.usecase.command.GetCardByIdCommand;
 import com.bank.card.card.infrastructure.CardRepo;
 import com.bank.card.shared.CardNumberEncoder;
+import com.bank.card.shared.CardProvider;
 import com.bank.card.shared.UseCase;
 import com.bank.card.shared.dto.CardDto;
+import com.bank.card.shared.id.CardId;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 @UseCase
-public class GetCardByIdUseCase {
+public class GetCardByIdUseCase implements CardProvider {
 
     private final CardRepo repo;
     private final CardNumberEncoder cardNumberEncoder;
@@ -52,5 +54,25 @@ public class GetCardByIdUseCase {
                 card.getCardValue(),
                 card.getExpires()
         );
+    }
+
+    @Override
+    public CardDto getById(CardId id) {
+        var card = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("Card not exist!"));
+
+        return new CardDto(
+                card.getId(),
+                card.getOwner().getName(),
+                card.getOwner().getId(),
+                card.getNumber().mask(),
+                card.getStatus(),
+                card.getCardValue(),
+                card.getExpires()
+        );
+    }
+
+    @Override
+    public boolean exist(CardId id) {
+        return repo.existsById(id);
     }
 }

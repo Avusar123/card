@@ -28,6 +28,10 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/user/**")
                                 .permitAll()
+                                .requestMatchers("/v3/**")
+                                .permitAll()
+                                .requestMatchers("/swagger-ui/**")
+                                .permitAll()
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                                 .anyRequest().authenticated())
                 .logout(Customizer.withDefaults())

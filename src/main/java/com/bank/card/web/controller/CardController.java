@@ -5,6 +5,7 @@ import com.bank.card.card.application.usecase.command.*;
 import com.bank.card.shared.dto.CardDto;
 import com.bank.card.shared.id.CardId;
 import com.bank.card.shared.id.UserId;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 public class CardController {
 
     private final CreateCardUseCase createCardUseCase;
