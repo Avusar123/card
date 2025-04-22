@@ -21,7 +21,8 @@ public class Limit {
         this.maxAmount = maxAmount;
     }
 
-    Limit() {}
+    Limit() {
+    }
 
     public LimitId getId() {
         return id;

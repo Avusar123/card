@@ -1,7 +1,7 @@
 package com.bank.card.user.application.usecase;
 
 import com.bank.card.shared.UseCase;
-import com.bank.card.shared.UserProvider;
+import com.bank.card.shared.api.UserProvider;
 import com.bank.card.shared.dto.UserDto;
 import com.bank.card.shared.id.UserId;
 import com.bank.card.user.application.usecase.command.GetUserByIdCommand;

@@ -9,10 +9,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CardRepo extends JpaRepository<Card, CardId> {
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN TRUE ELSE FALSE END FROM Card c WHERE c.number.hashed = :hashed")
     boolean existsByHashedNumber(String hashed);
+
+    @Query("SELECT c FROM Card c WHERE c.number.hashed = :hashed")
+    Optional<Card> findByHashedNumber(String hashed);
+
+    @Query("SELECT c.owner.id FROM Card c WHERE c.number.hashed = :hashed")
+    Optional<UserId> findOwnerByHashed(String hashed);
+
+    @Query("SELECT c.id FROM Card c WHERE c.number.hashed = :hashed")
+    Optional<CardId> findIdByHashed(String hashed);
 
     Page<Card> findAllByOwnerId(UserId owner, Pageable pageable);
 }

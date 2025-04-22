@@ -1,7 +1,7 @@
 package com.bank.card.card.infrastructure;
 
 import com.bank.card.card.domain.CardNumber;
-import com.bank.card.shared.CardNumberEncoder;
+import com.bank.card.shared.api.CardNumberEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

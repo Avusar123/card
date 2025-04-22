@@ -1,8 +1,8 @@
 package com.bank.card.card.application.usecase;
 
+import com.bank.card.card.application.LimitCascade;
 import com.bank.card.card.application.usecase.command.DeleteCardByIdCommand;
 import com.bank.card.card.infrastructure.CardRepo;
-import com.bank.card.shared.LimitCascade;
 import com.bank.card.shared.UseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

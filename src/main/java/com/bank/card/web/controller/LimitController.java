@@ -2,7 +2,7 @@ package com.bank.card.web.controller;
 
 import com.bank.card.limit.application.usecase.*;
 import com.bank.card.limit.application.usecase.request.*;
-import com.bank.card.limit.domain.LimitRange;
+import com.bank.card.shared.TimeRange;
 import com.bank.card.shared.dto.LimitDto;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -40,7 +40,7 @@ public class LimitController {
     }
 
     @GetMapping("/limit")
-    public LimitDto get(@RequestParam UUID cardId, @RequestParam LimitRange range) {
+    public LimitDto get(@RequestParam UUID cardId, @RequestParam TimeRange range) {
         return getLimitByIdUseCase.execute(new GetLimitByIdRequest(cardId, range).toCommand());
     }
 

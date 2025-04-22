@@ -1,8 +1,8 @@
 package com.bank.card.limit.application.usecase;
 
+import com.bank.card.card.application.LimitCascade;
 import com.bank.card.limit.application.usecase.command.DeleteLimitsByCardIdCommand;
 import com.bank.card.limit.infrastructure.LimitRepo;
-import com.bank.card.shared.LimitCascade;
 import com.bank.card.shared.UseCase;
 import com.bank.card.shared.id.CardId;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.bank.card.shared;
+package com.bank.card.shared.dto;
 
 import com.bank.card.shared.id.UserId;
 import com.bank.card.user.domain.UserRole;

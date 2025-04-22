@@ -1,4 +1,4 @@
-package com.bank.card.shared;
+package com.bank.card.card.application;
 
 import com.bank.card.shared.id.CardId;
 

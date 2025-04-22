@@ -6,6 +6,9 @@ import com.bank.card.user.application.usecase.*;
 import com.bank.card.user.application.usecase.command.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,13 +62,13 @@ public class UserController {
     }
 
     @GetMapping("/user/all")
-    public List<UserDto> all(@RequestParam(name = "page", defaultValue = "0") int page,
-                             @RequestParam(name = "size", defaultValue = "5") int size) {
+    public List<UserDto> all(@RequestParam(name = "page", defaultValue = "0") @PositiveOrZero int page,
+                             @RequestParam(name = "size", defaultValue = "5") @Positive int size) {
         return getUsersUseCase.execute(new GetUsersCommand(page, size));
     }
 
     @DeleteMapping("/user")
-    public void delete(@RequestParam String email) {
+    public void delete(@RequestParam @NotBlank String email) {
         deleteUserByEmailUseCase.execute(new DeleteUserByEmailCommand(email));
     }
 }

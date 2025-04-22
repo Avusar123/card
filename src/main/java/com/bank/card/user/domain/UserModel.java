@@ -19,8 +19,6 @@ public class UserModel {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "owner")
     List<Card> cards;
-//
-//    List<Transaction> transactions;
 
     @Enumerated(EnumType.STRING)
     UserRole role;

@@ -6,5 +6,8 @@ databaseChangeLog:
       path: card
       relativeToChangelogFile: true
   - includeAll:
+      path: transaction
+      relativeToChangelogFile: true
+  - includeAll:
       path: limit
       relativeToChangelogFile: true

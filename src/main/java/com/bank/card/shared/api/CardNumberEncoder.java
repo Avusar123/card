@@ -1,4 +1,4 @@
-package com.bank.card.shared;
+package com.bank.card.shared.api;
 
 import com.bank.card.card.domain.CardNumber;
 

@@ -2,8 +2,8 @@ package com.bank.card.limit.application.usecase;
 
 import com.bank.card.limit.application.usecase.command.GetLimitByIdCommand;
 import com.bank.card.limit.infrastructure.LimitRepo;
-import com.bank.card.shared.CardNumberEncoder;
 import com.bank.card.shared.UseCase;
+import com.bank.card.shared.api.CardNumberEncoder;
 import com.bank.card.shared.dto.LimitDto;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;

@@ -2,11 +2,11 @@ package com.bank.card.limit.usecase;
 
 import com.bank.card.limit.application.usecase.SetLimitUseCase;
 import com.bank.card.limit.application.usecase.command.SetLimitCommand;
-import com.bank.card.limit.domain.LimitRange;
 import com.bank.card.limit.infrastructure.LimitRepo;
-import com.bank.card.shared.CardProvider;
+import com.bank.card.shared.TimeRange;
 import com.bank.card.shared.id.CardId;
 import com.bank.card.shared.id.LimitId;
+import com.bank.card.transaction.application.CardProvider;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class SetLimitUseCaseTests {
     @Test
     public void setLimit_exception_cardNotExist() {
         var limitId = new LimitId(
-                LimitRange.DAY,
+                TimeRange.DAY,
                 new CardId()
         );
 
@@ -47,7 +47,7 @@ public class SetLimitUseCaseTests {
         var cardId = new CardId();
 
         var limitId = new LimitId(
-                LimitRange.DAY,
+                TimeRange.DAY,
                 cardId
         );
 
@@ -62,7 +62,7 @@ public class SetLimitUseCaseTests {
 
         Assertions.assertEquals(cardId, result.id().cardId());
 
-        Assertions.assertEquals(LimitRange.DAY, result.id().range());
+        Assertions.assertEquals(TimeRange.DAY, result.id().range());
 
         Assertions.assertEquals(0, result.amount());
     }
