@@ -1,4 +1,4 @@
-package com.card_management.user.web.security;
+package com.card_management.card.web.security;
 
 import com.card_management.shared.dto.SecurityUser;
 import jakarta.servlet.FilterChain;

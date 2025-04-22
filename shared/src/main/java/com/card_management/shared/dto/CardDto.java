@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.time.LocalDate;
 
 public record CardDto(@JsonUnwrapped CardId cardId,
-                      String ownerName,
                       @JsonUnwrapped(prefix = "owner_") UserId ownerId,
                       String number,
                       CardStatus status,

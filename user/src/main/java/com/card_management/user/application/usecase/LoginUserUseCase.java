@@ -1,6 +1,7 @@
 package com.card_management.user.application.usecase;
 
 import com.card_management.shared.UseCase;
+import com.card_management.shared.dto.UserDto;
 import com.card_management.user.application.usecase.command.LoginUserCommand;
 import com.card_management.user.infrastructure.UserRepo;
 import com.card_management.user.web.security.JwtService;
@@ -31,7 +32,10 @@ public class LoginUserUseCase {
         var user = userRepo.findByEmail(email).orElseThrow(() -> authException);
 
         if (passwordEncoder.matches(password, user.getPasswordHash())) {
-            return jwtService.generate(email);
+            return jwtService.generate(new UserDto(user.getId(),
+                    user.getRole(),
+                    user.getEmail(),
+                    user.getName()));
         } else {
             throw authException;
         }
