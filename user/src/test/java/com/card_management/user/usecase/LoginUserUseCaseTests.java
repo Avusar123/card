@@ -51,7 +51,7 @@ public class LoginUserUseCaseTests {
                 "Test"
         );
 
-        Mockito.when(jwtService.generate(email)).thenReturn("Token");
+        Mockito.when(jwtService.generate(Mockito.any())).thenReturn("Token");
 
         Mockito.when(repo.findByEmail(email)).thenReturn(Optional.of(userModel));
 
