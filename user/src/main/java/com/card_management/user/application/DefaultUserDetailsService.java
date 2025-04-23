@@ -1,7 +1,7 @@
 package com.card_management.user.application;
 
-import com.card_management.shared.dto.SecurityUser;
 import com.card_management.user.infrastructure.UserRepo;
+import com.card_management.web_security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.card_management.card.web.security;
+package com.card_management.web_security;
 
 import com.card_management.shared.dto.UserRole;
 import com.card_management.shared.id.UserId;

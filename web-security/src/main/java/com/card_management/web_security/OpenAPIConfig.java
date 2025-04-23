@@ -1,4 +1,4 @@
-package com.card_management.user.web.config;
+package com.card_management.web_security;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;

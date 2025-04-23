@@ -1,6 +1,7 @@
-package com.card_management.shared.dto;
+package com.card_management.web_security;
 
 
+import com.card_management.shared.dto.UserRole;
 import com.card_management.shared.id.UserId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

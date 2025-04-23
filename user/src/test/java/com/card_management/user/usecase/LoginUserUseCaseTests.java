@@ -6,7 +6,7 @@ import com.card_management.user.application.usecase.LoginUserUseCase;
 import com.card_management.user.application.usecase.command.LoginUserCommand;
 import com.card_management.user.domain.UserModel;
 import com.card_management.user.infrastructure.UserRepo;
-import com.card_management.user.web.security.JwtService;
+import com.card_management.user.web.security.JwtGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ public class LoginUserUseCaseTests {
     @Spy
     PasswordEncoder passwordEncoder;
     @Mock
-    JwtService jwtService;
+    JwtGenerator jwtService;
     @InjectMocks
     private LoginUserUseCase loginUserUseCase;
 

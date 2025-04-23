@@ -1,6 +1,5 @@
-package com.card_management.card.web.security;
+package com.card_management.web_security;
 
-import com.card_management.shared.dto.SecurityUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,12 +16,12 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    JwtService jwtService;
+    JwtParser jwtParser;
     UserDetailsService userDetailsService;
 
     @Autowired
-    public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
-        this.jwtService = jwtService;
+    public JwtAuthenticationFilter(JwtParser jwtParser, UserDetailsService userDetailsService) {
+        this.jwtParser = jwtParser;
         this.userDetailsService = userDetailsService;
     }
 
@@ -37,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().getAuthentication() == null) {
                 token = token.substring(7);
 
-                var tokenData = jwtService.parse(token);
+                var tokenData = jwtParser.parse(token);
 
                 if (!tokenData.isExpired()) {
                     var details = new SecurityUser(tokenData.role(), token, tokenData.email(), tokenData.id());

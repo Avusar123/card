@@ -1,4 +1,4 @@
-package com.card_management.user.web.controller;
+package com.card_management.web_security;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
