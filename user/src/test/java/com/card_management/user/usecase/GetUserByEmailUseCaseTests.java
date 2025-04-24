@@ -1,7 +1,7 @@
 package com.card_management.user.usecase;
 
-import com.card_management.shared.id.UserId;
 import com.card_management.shared.dto.UserRole;
+import com.card_management.shared.id.UserId;
 import com.card_management.user.application.usecase.GetUserByEmailUseCase;
 import com.card_management.user.application.usecase.command.GetUserByEmailCommand;
 import com.card_management.user.domain.UserModel;

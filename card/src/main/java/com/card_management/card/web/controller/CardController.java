@@ -17,7 +17,7 @@ import java.util.UUID;
 @SecurityRequirement(name = "Bearer Authentication")
 public class CardController {
 
-    private final CreateCardUseCase createCardUseCase;
+    private final InitCardCreationUseCase initCardCreationUseCase;
     private final GetCardsUseCase getCardsUseCase;
     private final GetCardsByUserIdUseCase getCardsByUserIdUseCase;
     private final BlockCardUseCase blockCardUseCase;
@@ -26,14 +26,14 @@ public class CardController {
     private final DeleteCardByIdUseCase deleteCardByIdUseCase;
 
     @Autowired
-    public CardController(CreateCardUseCase createCardUseCase,
+    public CardController(InitCardCreationUseCase initCardCreationUseCase,
                           GetCardsUseCase getCardsUseCase,
                           GetCardsByUserIdUseCase getCardsByUserIdUseCase,
                           BlockCardUseCase blockCardUseCase,
                           ActivateCardUseCase activateCardUseCase,
                           GetCardByIdUseCase getCardByIdUseCase,
                           DeleteCardByIdUseCase deleteCardByIdUseCase) {
-        this.createCardUseCase = createCardUseCase;
+        this.initCardCreationUseCase = initCardCreationUseCase;
         this.getCardsUseCase = getCardsUseCase;
         this.getCardsByUserIdUseCase = getCardsByUserIdUseCase;
         this.blockCardUseCase = blockCardUseCase;
@@ -44,7 +44,7 @@ public class CardController {
 
     @PostMapping("/card")
     public CardDto create(@RequestBody @Valid CreateCardCommand command) {
-        return createCardUseCase.execute(command);
+        return initCardCreationUseCase.execute(command);
     }
 
     @GetMapping("/card")

@@ -2,7 +2,7 @@ package com.card_management.card.usecase;
 
 import com.card_management.card.application.CardNumberEncoder;
 import com.card_management.card.application.exception.CardNumberAlreadyTaken;
-import com.card_management.card.application.usecase.CreateCardUseCase;
+import com.card_management.card.application.usecase.InitCardCreationUseCase;
 import com.card_management.card.application.usecase.command.CreateCardCommand;
 import com.card_management.card.domain.Card;
 import com.card_management.card.domain.CardNumber;
@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @ExtendWith(MockitoExtension.class)
 public class CreateCardUseCaseTests {
     @InjectMocks
-    CreateCardUseCase createCardUseCase;
+    InitCardCreationUseCase initCardCreationUseCase;
 
     @Mock
     CardNumberEncoder cardNumberGenerator;
@@ -48,7 +48,7 @@ public class CreateCardUseCaseTests {
 
         Mockito.when(cardRepo.existsByHashedNumber("Hashed")).thenReturn(true);
 
-        Assertions.assertThrows(CardNumberAlreadyTaken.class, () -> createCardUseCase.execute(createCardCommand));
+        Assertions.assertThrows(CardNumberAlreadyTaken.class, () -> initCardCreationUseCase.execute(createCardCommand));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class CreateCardUseCaseTests {
                 LocalDate.now().minusDays(1)
         );
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> createCardUseCase.execute(createCardCommand));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> initCardCreationUseCase.execute(createCardCommand));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class CreateCardUseCaseTests {
 
         Mockito.when(cardRepo.save(Mockito.any())).thenReturn(card);
 
-        var result = createCardUseCase.execute(createCardCommand);
+        var result = initCardCreationUseCase.execute(createCardCommand);
 
         Assertions.assertEquals("Mask", result.number());
 

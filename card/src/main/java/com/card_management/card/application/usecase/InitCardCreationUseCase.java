@@ -1,6 +1,7 @@
 package com.card_management.card.application.usecase;
 
 import com.card_management.card.application.CardNumberEncoder;
+import com.card_management.card.application.UserCheckProducer;
 import com.card_management.card.application.exception.CardNumberAlreadyTaken;
 import com.card_management.card.application.usecase.command.CreateCardCommand;
 import com.card_management.card.domain.Card;
@@ -10,6 +11,7 @@ import com.card_management.shared.dto.CardDto;
 import com.card_management.shared.dto.CardStatus;
 import com.card_management.shared.id.CardId;
 import com.card_management.shared.id.UserId;
+import com.card_management.shared.kafka.event.InitCardCreationEvent;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 @UseCase
-public class CreateCardUseCase {
+public class InitCardCreationUseCase {
 
     private final CardNumberEncoder cardNumberGenerator;
     private final CardRepo cardRepo;
+    private final UserCheckProducer userCheckProducer;
 
     @Autowired
-    public CreateCardUseCase(CardNumberEncoder cardNumberGenerator,
-                             CardRepo cardRepo) {
+    public InitCardCreationUseCase(CardNumberEncoder cardNumberGenerator,
+                                   CardRepo cardRepo,
+                                   UserCheckProducer userCheckProducer) {
         this.cardNumberGenerator = cardNumberGenerator;
         this.cardRepo = cardRepo;
+        this.userCheckProducer = userCheckProducer;
     }
 
     @Transactional
@@ -57,12 +62,14 @@ public class CreateCardUseCase {
         var card = new Card(new CardId(),
                 userId,
                 number,
-                CardStatus.ACTIVE,
+                CardStatus.CREATING,
                 command.value(),
                 command.expires());
 
 
         card = cardRepo.save(card);
+
+        userCheckProducer.send(new InitCardCreationEvent(card.getId().uuid(), card.getOwnerId().uuid() ));
 
         return new CardDto(
                 card.getId(),

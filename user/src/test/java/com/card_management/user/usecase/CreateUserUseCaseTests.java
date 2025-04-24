@@ -1,11 +1,11 @@
 package com.card_management.user.usecase;
 
+import com.card_management.shared.dto.UserRole;
 import com.card_management.shared.id.UserId;
 import com.card_management.user.application.exception.EmailAlreadyExists;
 import com.card_management.user.application.usecase.CreateUserUseCase;
 import com.card_management.user.application.usecase.command.CreateUserCommand;
 import com.card_management.user.domain.UserModel;
-import com.card_management.shared.dto.UserRole;
 import com.card_management.user.infrastructure.UserRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
