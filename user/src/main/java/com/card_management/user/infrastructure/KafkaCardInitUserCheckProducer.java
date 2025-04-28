@@ -2,6 +2,7 @@ package com.card_management.user.infrastructure;
 
 import com.card_management.shared.kafka.event.UserCheckResultEvent;
 import com.card_management.user.application.listener.CardInitUserCheckProducer;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class KafkaCardInitUserCheckProducer implements CardInitUserCheckProducer
     }
 
     @Override
-    public void send(UserCheckResultEvent event) {
+    public void send(@Valid UserCheckResultEvent event) {
         kafkaTemplate.send("user-check-result", event);
     }
 }

@@ -12,4 +12,9 @@ public class KafkaConfig {
     public NewTopic userCheckResultTopic() {
         return new NewTopic("user-check-result", 2, (short) 1);
     }
+
+    @Bean
+    public NewTopic userDeletedTopic() {
+        return new NewTopic("user-deleted", 1, (short) 1);
+    }
 }

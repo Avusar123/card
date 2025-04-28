@@ -9,7 +9,7 @@ public class SecurityConfig {
     @Bean
     public AdditionalSecurityConfigurer additionalSecurityConfigurer() {
         return auth -> auth
-                .requestMatchers("/user/**")
+                .requestMatchers("/user/login")
                 .permitAll();
     }
 }

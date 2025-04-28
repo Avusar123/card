@@ -1,6 +1,8 @@
 package com.card_management.user.application.usecase;
 
 import com.card_management.shared.UseCase;
+import com.card_management.shared.kafka.event.UserDeletedEvent;
+import com.card_management.user.application.UserDeletedProducer;
 import com.card_management.user.application.usecase.command.DeleteUserByEmailCommand;
 import com.card_management.user.infrastructure.UserRepo;
 import jakarta.validation.Valid;
@@ -14,9 +16,13 @@ public class DeleteUserByEmailUseCase {
 
     UserRepo repo;
 
+    UserDeletedProducer producer;
+
     @Autowired
-    public DeleteUserByEmailUseCase(UserRepo repo) {
+    public DeleteUserByEmailUseCase(UserRepo repo,
+                                    UserDeletedProducer producer) {
         this.repo = repo;
+        this.producer = producer;
     }
 
     @Transactional
@@ -25,6 +31,8 @@ public class DeleteUserByEmailUseCase {
         var email = command.email();
 
         var user = repo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found!"));
+
+        producer.send(new UserDeletedEvent(user.getId()));
 
         repo.delete(user);
     }

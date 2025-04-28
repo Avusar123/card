@@ -69,7 +69,7 @@ public class InitCardCreationUseCase {
 
         card = cardRepo.save(card);
 
-        userCheckProducer.send(new InitCardCreationEvent(card.getId().uuid(), card.getOwnerId().uuid() ));
+        userCheckProducer.send(new InitCardCreationEvent(card.getId(), card.getOwnerId()));
 
         return new CardDto(
                 card.getId(),

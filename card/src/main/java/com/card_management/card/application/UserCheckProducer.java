@@ -1,7 +1,8 @@
 package com.card_management.card.application;
 
 import com.card_management.shared.kafka.event.InitCardCreationEvent;
+import jakarta.validation.Valid;
 
 public interface UserCheckProducer {
-    public void send(InitCardCreationEvent event);
+    void send(@Valid InitCardCreationEvent event);
 }

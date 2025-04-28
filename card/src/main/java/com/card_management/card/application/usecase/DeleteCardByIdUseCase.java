@@ -1,25 +1,28 @@
 package com.card_management.card.application.usecase;
 
-import com.card_management.card.application.LimitCascade;
+import com.card_management.card.application.CardDeletedProducer;
 import com.card_management.card.application.usecase.command.DeleteCardByIdCommand;
 import com.card_management.card.infrastructure.CardRepo;
 import com.card_management.shared.UseCase;
+import com.card_management.shared.kafka.event.CardListDeletedEvent;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @UseCase
 public class DeleteCardByIdUseCase {
 
-    private final LimitCascade cascade;
+    private final CardDeletedProducer producer;
     CardRepo repo;
 
     @Autowired
     public DeleteCardByIdUseCase(CardRepo repo,
-                                 LimitCascade cascade) {
+                                 CardDeletedProducer producer) {
         this.repo = repo;
-        this.cascade = cascade;
+        this.producer = producer;
     }
 
     @Transactional
@@ -29,6 +32,6 @@ public class DeleteCardByIdUseCase {
 
         repo.deleteById(id);
 
-        cascade.deleteAllByCardId(id);
+        producer.send(new CardListDeletedEvent(List.of(id)));
     }
 }
