@@ -1,16 +1,17 @@
 package com.card_management.card.application.listener;
 
 import com.card_management.card.infrastructure.CardRepo;
+import com.card_management.shared.Listener;
 import com.card_management.shared.dto.CardStatus;
-import com.card_management.shared.id.CardId;
 import com.card_management.shared.kafka.event.UserCheckResultEvent;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Listener
 public class CardInitCheckResultListener {
 
     private final CardRepo repo;
@@ -22,8 +23,8 @@ public class CardInitCheckResultListener {
 
     @KafkaListener(topics = "user-check-result", groupId = "card")
     @Transactional
-    public void listen(UserCheckResultEvent event, Acknowledgment ack) {
-        var id = new CardId(event.cardId());
+    public void listen(@Valid UserCheckResultEvent event, Acknowledgment ack) {
+        var id = event.cardId();
 
         var card = repo.findById(id);
 

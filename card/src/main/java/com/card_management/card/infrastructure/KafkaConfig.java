@@ -12,4 +12,9 @@ public class KafkaConfig {
     public NewTopic initCardCreationTopic() {
         return new NewTopic("init-card-creation", 2, (short) 1);
     }
+
+    @Bean
+    public NewTopic cardsDeletedTopic() {
+        return new NewTopic("cards-deleted", 1, (short) 1);
+    }
 }

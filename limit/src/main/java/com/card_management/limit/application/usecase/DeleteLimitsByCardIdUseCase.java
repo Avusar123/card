@@ -23,8 +23,6 @@ public class DeleteLimitsByCardIdUseCase {
     public void execute(@Valid DeleteLimitsByCardIdCommand command) {
         var cardId = command.cardId();
 
-        var limits = repo.findAllByCardId(cardId);
-
-        repo.deleteAll(limits);
+        repo.deleteAllByCardId(cardId);
     }
 }
