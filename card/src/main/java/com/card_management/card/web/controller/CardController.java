@@ -20,6 +20,7 @@ public class CardController {
     private final InitCardCreationUseCase initCardCreationUseCase;
     private final GetCardsUseCase getCardsUseCase;
     private final GetCardsByUserIdUseCase getCardsByUserIdUseCase;
+    private final GetCardByNumberUseCase getCardByNumberUseCase;
     private final BlockCardUseCase blockCardUseCase;
     private final ActivateCardUseCase activateCardUseCase;
     private final GetCardByIdUseCase getCardByIdUseCase;
@@ -29,6 +30,7 @@ public class CardController {
     public CardController(InitCardCreationUseCase initCardCreationUseCase,
                           GetCardsUseCase getCardsUseCase,
                           GetCardsByUserIdUseCase getCardsByUserIdUseCase,
+                          GetCardByNumberUseCase getCardByNumberUseCase,
                           BlockCardUseCase blockCardUseCase,
                           ActivateCardUseCase activateCardUseCase,
                           GetCardByIdUseCase getCardByIdUseCase,
@@ -36,6 +38,7 @@ public class CardController {
         this.initCardCreationUseCase = initCardCreationUseCase;
         this.getCardsUseCase = getCardsUseCase;
         this.getCardsByUserIdUseCase = getCardsByUserIdUseCase;
+        this.getCardByNumberUseCase = getCardByNumberUseCase;
         this.blockCardUseCase = blockCardUseCase;
         this.activateCardUseCase = activateCardUseCase;
         this.getCardByIdUseCase = getCardByIdUseCase;
@@ -50,6 +53,11 @@ public class CardController {
     @GetMapping("/card")
     public CardDto get(@RequestParam(name = "id") UUID cardId) {
         return getCardByIdUseCase.execute(new GetCardByIdCommand(new CardId(cardId)));
+    }
+
+    @GetMapping("/card/number")
+    public CardDto get(@RequestParam(name = "number") String rawNumber) {
+        return getCardByNumberUseCase.execute(new GetCardByNumberCommand(rawNumber));
     }
 
     @DeleteMapping("/card")

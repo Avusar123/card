@@ -1,4 +1,4 @@
-package com.card_management.shared;
+package com.card_management.shared.kafka;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +10,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Service
+@Transactional
 @Validated
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Producer {
+public @interface Listener {
 }

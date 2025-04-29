@@ -1,7 +1,7 @@
 package com.card_management.card.infrastructure;
 
 import com.card_management.card.application.CardDeletedProducer;
-import com.card_management.shared.Producer;
+import com.card_management.shared.kafka.Producer;
 import com.card_management.shared.kafka.event.CardListDeletedEvent;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dev
+      context: dev, prod
+      changes:
+        - createTable:
+            tableName: transaction_model
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: from_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: to_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: initiator_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: Int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_time
+                  type: Timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_time
+                  type: Timestamp
+              - column:
+                  name: status
+                  type: VARCHAR(30)
+              - column:
+                  name: failure
+                  type: VARCHAR(50)
+

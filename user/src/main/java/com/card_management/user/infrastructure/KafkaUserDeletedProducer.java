@@ -1,6 +1,6 @@
 package com.card_management.user.infrastructure;
 
-import com.card_management.shared.Producer;
+import com.card_management.shared.kafka.Producer;
 import com.card_management.shared.kafka.event.UserDeletedEvent;
 import com.card_management.user.application.UserDeletedProducer;
 import jakarta.validation.Valid;

@@ -3,7 +3,7 @@ package com.card_management.card.application.listener;
 import com.card_management.card.application.CardDeletedProducer;
 import com.card_management.card.domain.Card;
 import com.card_management.card.infrastructure.CardRepo;
-import com.card_management.shared.Listener;
+import com.card_management.shared.kafka.Listener;
 import com.card_management.shared.kafka.event.CardListDeletedEvent;
 import com.card_management.shared.kafka.event.UserDeletedEvent;
 import jakarta.validation.Valid;

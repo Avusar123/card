@@ -1,7 +1,6 @@
 package com.card_management.user.application.listener;
 
-import com.card_management.shared.Listener;
-import com.card_management.shared.id.UserId;
+import com.card_management.shared.kafka.Listener;
 import com.card_management.shared.kafka.event.InitCardCreationEvent;
 import com.card_management.shared.kafka.event.UserCheckResultEvent;
 import com.card_management.user.infrastructure.UserRepo;

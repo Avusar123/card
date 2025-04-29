@@ -1,7 +1,7 @@
 package com.card_management.card.infrastructure;
 
 import com.card_management.card.application.UserCheckProducer;
-import com.card_management.shared.Producer;
+import com.card_management.shared.kafka.Producer;
 import com.card_management.shared.kafka.event.InitCardCreationEvent;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
