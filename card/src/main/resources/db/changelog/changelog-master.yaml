@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - includeAll:
+      path: card
+      relativeToChangelogFile: true

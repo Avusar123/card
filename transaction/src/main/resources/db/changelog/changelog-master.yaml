@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - includeAll:
+      path: transaction
+      relativeToChangelogFile: true
