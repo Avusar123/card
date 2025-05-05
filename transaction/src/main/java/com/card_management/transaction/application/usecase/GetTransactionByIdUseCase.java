@@ -35,6 +35,8 @@ public class GetTransactionByIdUseCase {
                 transaction.getToId(),
                 transaction.getAmount(),
                 transaction.getStatus(),
+                transaction.getCreatedTime(),
+                transaction.getCompletedTime(),
                 transaction.getFailureReason()
         );
     }

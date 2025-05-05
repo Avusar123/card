@@ -36,7 +36,7 @@ public class GetCardByIdUseCase {
                 throw new AccessDeniedException("You do not have access to this card");
             }
 
-            if (user.getId() == card.getOwnerId()) {
+            if (user.getId().equals(card.getOwnerId())) {
                 return new CardDto(
                         card.getId(),
                         card.getOwnerId(),

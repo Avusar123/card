@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: dev
+      context: dev
+      changes:
+        - insert:
+              tableName: card
+              columns:
+                - column:
+                    name: id
+                    value: "123e4567-e89b-12d3-a456-426614178000"
+                - column:
+                    name: owner_id
+                    value: "123e4567-e89b-12d3-a456-426614174000"
+                - column:
+                    name: masked_number
+                    value: "0000********0000"
+                - column:
+                    name: hashed_number
+                    value: "y373rOpIeRXlko20koVug+s2dczRqh0DxClmNzQ52E8="
+                - column:
+                    name: status
+                    value: "ACTIVE"
+                - column:
+                    name: card_value
+                    value: "1000"
+                - column:
+                    name: expires
+                    value: "2027-01-20"
+        - insert:
+            tableName: card
+            columns:
+              - column:
+                  name: id
+                  value: "123e4567-e89b-12d3-a456-426614178001"
+              - column:
+                  name: owner_id
+                  value: "123e4567-e89b-12d3-a456-426614174000"
+              - column:
+                  name: masked_number
+                  value: "0000********0001"
+              - column:
+                  name: hashed_number
+                  value: "XVndzeOqxyGJZcv5ncnvPOs2dczRqh0DxClmNzQ52E8="
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: card_value
+                  value: "1000"
+              - column:
+                  name: expires
+                  value: "2027-01-20"

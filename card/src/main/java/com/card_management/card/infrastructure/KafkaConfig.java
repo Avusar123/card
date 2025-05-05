@@ -10,7 +10,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 public class KafkaConfig {
     @Bean
     public NewTopic initCardCreationTopic() {
-        return new NewTopic("init-card-creation", 2, (short) 1);
+        return new NewTopic("init-card-creation", 1, (short) 1);
     }
 
     @Bean

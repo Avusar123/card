@@ -1,10 +1,8 @@
 package com.card_management.transaction.application.usecase;
 
-import com.card_management.shared.TimeRange;
 import com.card_management.shared.UseCase;
 import com.card_management.shared.dto.TransactionDto;
 import com.card_management.shared.id.TransactionId;
-import com.card_management.shared.kafka.event.TransactionSagaEvent;
 import com.card_management.transaction.application.usecase.command.CreateTransactionCommand;
 import com.card_management.transaction.domain.Transaction;
 import com.card_management.transaction.infrastructure.TransactionRepo;
@@ -16,20 +14,15 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @UseCase
 public class CreateTransactionUseCase {
 
     private final TransactionRepo repo;
-    private final TransactionSageProducer producer;
 
     @Autowired
-    public CreateTransactionUseCase(TransactionRepo repo,
-                                    TransactionSageProducer producer) {
+    public CreateTransactionUseCase(TransactionRepo repo) {
         this.repo = repo;
-        this.producer = producer;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -47,26 +40,7 @@ public class CreateTransactionUseCase {
                 command.amount()
         );
 
-        Map<TimeRange, Integer> sums = new HashMap<>();
-
-        for (var range : TimeRange.values()) {
-            sums.put(range, repo.findOutcomeSumInPeriod(command.fromId(), LocalDateTime.now().minusDays(range.getDays())).orElse(0));
-        }
-
         repo.save(transaction);
-
-        producer.send(
-                new TransactionSagaEvent(
-                        transaction.getId().uuid(),
-                        "started",
-                        "transaction-service",
-                        transaction.getAmount(),
-                        transaction.getFromId(),
-                        transaction.getToId(),
-                        transaction.getInitiator(),
-                        sums
-                )
-        );
 
         return new TransactionDto(
                 transaction.getId(),
@@ -75,6 +49,8 @@ public class CreateTransactionUseCase {
                 transaction.getToId(),
                 transaction.getAmount(),
                 transaction.getStatus(),
+                transaction.getCreatedTime(),
+                transaction.getCompletedTime(),
                 transaction.getFailureReason()
         );
     }

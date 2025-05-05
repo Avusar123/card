@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,8 +27,8 @@ public interface TransactionRepo extends JpaRepository<Transaction, TransactionI
     @Query("SELECT t FROM Transaction t WHERE completedTime >= :fromTime AND toId = :cardId ORDER BY t.completedTime DESC")
     Page<Transaction> findIncomeInPeriod(CardId cardId, LocalDateTime fromTime, Pageable pageable);
 
-    @Query("SELECT COUNT(*) > 0 FROM Transaction t WHERE initiator = :userId AND status = :status")
-    boolean existsByStatus(UserId userId, TransactionStatus status);
+    @Query("SELECT t FROM Transaction t WHERE status = :status")
+    List<Transaction> findAllByStatus(TransactionStatus status);
 
     @Query("SELECT t FROM Transaction t WHERE completedTime >= :fromTime AND initiator = :userId ORDER BY t.completedTime DESC")
     Page<Transaction> findByInitiatorInPeriod(UserId userId, LocalDateTime fromTime, Pageable pageable);

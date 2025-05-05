@@ -3,11 +3,11 @@ package com.card_management.user.application.listener;
 import com.card_management.shared.kafka.Listener;
 import com.card_management.shared.kafka.event.InitCardCreationEvent;
 import com.card_management.shared.kafka.event.UserCheckResultEvent;
+import com.card_management.user.application.CardInitUserCheckProducer;
 import com.card_management.user.infrastructure.UserRepo;
 import jakarta.validation.Valid;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Listener

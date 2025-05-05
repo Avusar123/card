@@ -12,4 +12,9 @@ public class KafkaConfig {
     public NewTopic transaction() {
         return new NewTopic("transaction-saga", 1, (short) 1);
     }
+
+    @Bean
+    public NewTopic transactionResponse() {
+        return new NewTopic("transaction-saga-response", 1, (short) 1);
+    }
 }

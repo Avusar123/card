@@ -53,7 +53,6 @@ public class Transaction {
         this.createdTime = createdTime;
         this.status = TransactionStatus.PROCESSING;
         this.amount = amount;
-        this.failureReason = null;
     }
 
     Transaction() {
@@ -123,8 +122,8 @@ public class Transaction {
         this.createdTime = createdTime;
     }
 
-    public LocalDateTime getCompletedTime() {
-        return completedTime;
+    public Optional<LocalDateTime> getCompletedTime() {
+        return Optional.ofNullable(completedTime);
     }
 
     public void setCompletedTime(LocalDateTime completedTime) {

@@ -6,6 +6,7 @@ import com.card_management.shared.id.UserId;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ public record TransactionDto(@JsonUnwrapped TransactionId id, @JsonUnwrapped(pre
                              @JsonUnwrapped(prefix = "card_to_") CardId to,
                              int amount,
                              TransactionStatus status,
+                             LocalDateTime addedTime,
+                             @JsonInclude(JsonInclude.Include.NON_ABSENT) Optional<LocalDateTime> completedTime,
                              @JsonInclude(JsonInclude.Include.NON_ABSENT) Optional<String> failureReason) {
 
 }

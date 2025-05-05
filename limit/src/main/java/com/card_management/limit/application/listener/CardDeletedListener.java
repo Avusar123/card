@@ -1,7 +1,6 @@
 package com.card_management.limit.application.listener;
 
 import com.card_management.limit.infrastructure.LimitRepo;
-import com.card_management.shared.dto.CardStatus;
 import com.card_management.shared.kafka.Listener;
 import com.card_management.shared.kafka.event.CardListDeletedEvent;
 import jakarta.validation.Valid;

@@ -50,6 +50,8 @@ public class GetUserTransactionsByRangeUseCase {
                                 t.getToId(),
                                 t.getAmount(),
                                 t.getStatus(),
+                                t.getCreatedTime(),
+                                t.getCompletedTime(),
                                 t.getFailureReason()))
                 .toList();
     }
