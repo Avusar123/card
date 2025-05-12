@@ -2,9 +2,11 @@ package com.card_management.user.usecase;
 
 import com.card_management.shared.dto.UserRole;
 import com.card_management.shared.id.UserId;
+import com.card_management.user.application.UserDeletedProducer;
 import com.card_management.user.application.usecase.DeleteUserByEmailUseCase;
 import com.card_management.user.application.usecase.command.DeleteUserByEmailCommand;
 import com.card_management.user.domain.UserModel;
+import com.card_management.user.infrastructure.KafkaUserDeletedProducer;
 import com.card_management.user.infrastructure.UserRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,9 @@ public class DeleteUserByEmailTests {
     UserRepo repo;
     @InjectMocks
     private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
+
+    @Mock
+    private UserDeletedProducer userDeletedProducer;
 
     @Test
     void getUser_exception_notFound() {
