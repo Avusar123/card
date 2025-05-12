@@ -7,6 +7,7 @@ import com.card_management.card.application.usecase.command.CreateCardCommand;
 import com.card_management.card.domain.Card;
 import com.card_management.card.domain.CardNumber;
 import com.card_management.card.infrastructure.CardRepo;
+import com.card_management.card.infrastructure.KafkaUserCheckProducer;
 import com.card_management.shared.dto.CardStatus;
 import com.card_management.shared.id.CardId;
 import com.card_management.shared.id.UserId;
@@ -27,6 +28,9 @@ public class CreateCardUseCaseTests {
 
     @Mock
     CardNumberEncoder cardNumberGenerator;
+
+    @Mock
+    KafkaUserCheckProducer producer;
 
     @Mock
     CardRepo cardRepo;
@@ -88,7 +92,7 @@ public class CreateCardUseCaseTests {
         var card = new Card(new CardId(),
                 userId,
                 cardNumber,
-                CardStatus.ACTIVE,
+                CardStatus.CREATING,
                 0,
                 expires);
 

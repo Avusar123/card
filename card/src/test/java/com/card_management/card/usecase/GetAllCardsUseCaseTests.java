@@ -49,6 +49,6 @@ public class GetAllCardsUseCaseTests {
 
         var result = getCardsUseCase.execute(new GetCardsCommand(0, 1));
 
-        Assertions.assertEquals(cardId, result.getFirst().cardId());
+        Assertions.assertEquals(cardId, result.get(0).cardId());
     }
 }
