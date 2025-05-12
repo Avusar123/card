@@ -1,0 +1,129 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: "2181"
+      ZOOKEEPER_TICK_TIME: "2000"
+    ports:
+      - "2181:2181"
+    restart: always
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    ports:
+      - "9092:9092"
+    restart: always
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: bankDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: EYm2fgnhAUXU
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  card:
+    image: avusar/card
+    depends_on:
+      - redis
+      - postgres
+      - kafka
+    environment:
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_LIQUIBASE_CONTEXTS: "prod, dev"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: EYm2fgnhAUXU
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_PLATFORM: postgres
+      jwt.secret: "K9L#mPnW2vX8jY4hF&tQ7sZ1cA@eR5uI3bN6xD0gM%yB^wE9kC4pH8mT2fV7qJ#nL5sX@aU3hR9cW4bG6vN0jY8pH"
+      cipher.secret: "w9aZL1o3g7nX4c+Q9dL3eR8wzJ7yB6NsT3qVfHbZ9Ws="
+      kafka.server: kafka:9092
+    ports:
+      - "8080:8080"
+    restart: always
+
+  limit:
+    image: avusar/limit
+    depends_on:
+      - redis
+      - postgres
+      - kafka
+    environment:
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_LIQUIBASE_CONTEXTS: "prod, dev"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: EYm2fgnhAUXU
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_PLATFORM: postgres
+      jwt.secret: "K9L#mPnW2vX8jY4hF&tQ7sZ1cA@eR5uI3bN6xD0gM%yB^wE9kC4pH8mT2fV7qJ#nL5sX@aU3hR9cW4bG6vN0jY8pH"
+      kafka.server: kafka:9092
+    ports:
+      - "8081:8080"
+    restart: always
+
+  transaction:
+    image: avusar/transaction
+    depends_on:
+      - redis
+      - postgres
+      - kafka
+    environment:
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_LIQUIBASE_CONTEXTS: "prod, dev"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: EYm2fgnhAUXU
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_PLATFORM: postgres
+      jwt.secret: "K9L#mPnW2vX8jY4hF&tQ7sZ1cA@eR5uI3bN6xD0gM%yB^wE9kC4pH8mT2fV7qJ#nL5sX@aU3hR9cW4bG6vN0jY8pH"
+      kafka.server: kafka:9092
+    ports:
+      - "8082:8080"
+    restart: always
+
+  user:
+    image: avusar/user
+    depends_on:
+      - redis
+      - postgres
+      - kafka
+    environment:
+      jwt.expiration: "30000"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_LIQUIBASE_CONTEXTS: "prod, dev"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: EYm2fgnhAUXU
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_PLATFORM: postgres
+      jwt.secret: "K9L#mPnW2vX8jY4hF&tQ7sZ1cA@eR5uI3bN6xD0gM%yB^wE9kC4pH8mT2fV7qJ#nL5sX@aU3hR9cW4bG6vN0jY8pH"
+      kafka.server: kafka:9092
+    ports:
+      - "8083:8080"
+    restart: always
+
+volumes:
+  pgdata:
